@@ -7,13 +7,14 @@ const config: AWS = {
     name: 'aws',
     runtime: 'nodejs18.x',
     region: 'us-east-1',
-    deploymentBucket: {
-      name: 'ms-appointment-deployment'
-    },
+    //deploymentBucket: {
+    //  name: 'ms-appointment-deployment'
+    //},
     environment: {
-      SNS_TOPIC_ARN: {
-        Ref: 'AppointmentTopic'
-      },
+      //SNS_TOPIC_ARN: {
+      //  Ref: 'AppointmentTopic'
+      //},
+      SNS_TOPIC_ARN: 'arn:aws:sns:us-east-1:520411743437:AppointmentTopic',
       DYNAMO_TABLE_NAME: 'appointments',
     },
     iam: {
@@ -24,7 +25,8 @@ const config: AWS = {
             Action: [
               'sns:*',
               'dynamodb:*',
-              'sqs:*'
+              'sqs:*',
+              'events:PutEvents'
             ],
             Resource: '*'
           }
@@ -67,13 +69,49 @@ const config: AWS = {
         }
       ],
       environment: {
-        MYSQL_HOST: 'mydbtest.c8vq2oe4eoyh.us-east-1.rds.amazonaws.com',
-        MYSQL_USER: 'koki',
-        MYSQL_PASSWORD: 'koki1212',
-        MYSQL_DB: 'appointments',
+        MYSQL_HOST: 'database-1.c8vq2oe4eoyh.us-east-1.rds.amazonaws.com',
+        MYSQL_USER: 'admin',
+        MYSQL_PASSWORD: 'qBZiZ5lUZm7KGNNbp3Ra',
+        MYSQL_DB: 'Agendamiento',
         MYSQL_PORT: '3306',
       }
+    },
+    appointmentCL: {
+      handler: 'src/appointment_cl/interfaces/sqs/handler.handler',
+      events: [
+        {
+          sqs: {
+            arn: {
+              'Fn::GetAtt': ['SQSAppointmentCL', 'Arn']
+            }
+          }
+        }
+      ],
+      environment: {
+        MYSQL_HOST: 'database-1.c8vq2oe4eoyh.us-east-1.rds.amazonaws.com',
+        MYSQL_USER: 'admin',
+        MYSQL_PASSWORD: 'qBZiZ5lUZm7KGNNbp3Ra',
+        MYSQL_DB: 'Agendamiento',
+        MYSQL_PORT: '3306',
+      }
+    },
+    updateStatusFromSQS: {
+      handler: 'src/appointment/setup.SqsToUpdateStatus',
+      events: [
+        {
+          sqs: {
+            arn: {
+              'Fn::GetAtt': ['SQSConformityUpdate', 'Arn']
+            }
+          }
+        }
+      ],
+      environment: {
+        DYNAMO_TABLE_NAME: 'appointments'
+      }
     }
+    
+    
   },
   resources: {
     Resources: {
@@ -93,7 +131,7 @@ const config: AWS = {
         }
       },
 
-      // SNS → SQS Subscription
+      // SNS to SQS Subscription
       SubscriptionPE: {
         Type: 'AWS::SNS::Subscription',
         Properties: {
@@ -129,13 +167,111 @@ const config: AWS = {
           }
         }
       },
-      // Code Deploy Bucket
-      DeploymentBucket: {
-        Type: 'AWS::S3::Bucket',
+
+      // SQS Queue for CL
+      SQSAppointmentCL: {
+        Type: 'AWS::SQS::Queue',
         Properties: {
-          BucketName: 'ms-appointment-deployment'
+          QueueName: 'sqs_cl'
         }
-      }
+      },
+      
+      // SNS to SQS Subscription
+      SubscriptionCL: {
+        Type: 'AWS::SNS::Subscription',
+        Properties: {
+          TopicArn: { Ref: 'AppointmentTopic' },
+          Protocol: 'sqs',
+          Endpoint: { 'Fn::GetAtt': ['SQSAppointmentCL', 'Arn'] },
+          FilterPolicy: {
+            countryISO: ['CL']
+          },
+          RawMessageDelivery: true
+        }
+      },
+      
+      // Allow SNS to send to SQS for CL
+      SQSPolicyCL: {
+        Type: 'AWS::SQS::QueuePolicy',
+        Properties: {
+          Queues: [{ Ref: 'SQSAppointmentCL' }],
+          PolicyDocument: {
+            Statement: [
+              {
+                Effect: 'Allow',
+                Principal: '*',
+                Action: 'sqs:SendMessage',
+                Resource: { 'Fn::GetAtt': ['SQSAppointmentCL', 'Arn'] },
+                Condition: {
+                  ArnEquals: {
+                    'aws:SourceArn': { Ref: 'AppointmentTopic' }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+
+      // Event Rule for Appointment Created
+      SQSConformityUpdate: {
+        Type: 'AWS::SQS::Queue',
+        Properties: {
+          QueueName: 'sqs_conformity_update'
+        }
+      },
+
+      // Event Rule
+      SQSPolicyConformityUpdate: {
+        Type: 'AWS::SQS::QueuePolicy',
+        Properties: {
+          Queues: [{ Ref: 'SQSConformityUpdate' }],
+          PolicyDocument: {
+            Statement: [
+              {
+                Effect: 'Allow',
+                Principal: '*',
+                Action: 'sqs:SendMessage',
+                Resource: { 'Fn::GetAtt': ['SQSConformityUpdate', 'Arn'] },
+                Condition: {
+                  ArnEquals: {
+                    'aws:SourceArn': {
+                      'Fn::Sub': 'arn:aws:events:${AWS::Region}:${AWS::AccountId}:event-bus/default'
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      
+      
+      // Event Rule for Appointment Created
+      EventRuleAppointmentCreated: {
+        Type: 'AWS::Events::Rule',
+        Properties: {
+          EventBusName: 'default',
+          EventPattern: {
+            source: ['ms.appointment'],
+            detailType: ['AppointmentCreated']
+          },
+          Targets: [
+            {
+              Arn: { 'Fn::GetAtt': ['SQSConformityUpdate', 'Arn'] },
+              Id: 'TargetSQSConformityUpdate'
+            }
+          ]
+        }
+      },
+    
+      // Code Deploy Bucket
+      //DeploymentBucket: {
+      //  Type: 'AWS::S3::Bucket',
+      //  Properties: {
+      //    BucketName: 'ms-appointment-deployment'
+      //  }
+      //}
     }
   }
 };

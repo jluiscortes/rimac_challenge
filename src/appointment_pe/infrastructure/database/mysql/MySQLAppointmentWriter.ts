@@ -4,6 +4,9 @@ import { pool } from '../../../shared/database/mysqlClient';
 
 export class MySQLAppointmentWriter implements IAppointmentWriter {
   async save(appointment: Appointment): Promise<void> {
+
+    console.log({appointment});
+    
     const query = `
       INSERT INTO appointments (
         insuredId, scheduleId, countryISO, centerId, specialtyId,

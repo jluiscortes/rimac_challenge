@@ -1,31 +1,31 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import { handler } from './interfaces/sqs/handler';
+import { EventBridge } from 'aws-sdk';
 
-const testEvent = {
-  Records: [
-    {
-      body: JSON.stringify({
-        insuredId: '999888777',
-        scheduleId: 10,
-        countryISO: 'PE',
-        centerId: 1,
-        specialtyId: 3,
-        medicId: 5,
-        date: '2025-05-06T10:30:00Z',
-        status: 'pending',
-        createdAt: new Date().toISOString()
-      })
-    }
-  ]
-};
+const eventBridge = new EventBridge({ region: 'us-east-1' });
 
-(async () => {
+async function sendTestEvent() {
   try {
-    await handler(testEvent as any);
-    console.log('Test completado con éxito');
-  } catch (err) {
-    console.error('Error en el test', err);
+    const response = await eventBridge.putEvents({
+      Entries: [
+        {
+          Source: 'ms.appointment',
+          DetailType: 'AppointmentCreated',
+          EventBusName: 'default',
+          Detail: JSON.stringify({
+            insuredId: '999888777PE',
+            countryISO: 'PE',
+            status: 'completed'
+          })
+        }
+      ]
+    }).promise();
+
+    console.log('Evento enviado correctamente:', JSON.stringify(response, null, 2));
+  } catch (error: any) {
+    console.error('Error al enviar el evento:', error.message);
   }
-})();
+}
+
+sendTestEvent();

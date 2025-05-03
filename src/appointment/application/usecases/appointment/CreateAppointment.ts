@@ -17,7 +17,7 @@ export class CreateAppointment {
     };
 
     await this.repository.save(appointment);
-    //await this.publisher.publish(appointment);
+    await this.publisher.publish(appointment);
 
     return appointment;
   }
