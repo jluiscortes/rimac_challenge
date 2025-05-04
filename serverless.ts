@@ -2,7 +2,7 @@ import type { AWS } from '@serverless/typescript';
 
 const config: AWS = {
   service: 'ms-appointment',
-  plugins: ['serverless-offline'],
+  plugins: ['serverless-offline', 'serverless-dotenv-plugin'],
   provider: {
     name: 'aws',
     runtime: 'nodejs18.x',
@@ -15,7 +15,7 @@ const config: AWS = {
         Ref: 'AppointmentTopic'
       },
       //SNS_TOPIC_ARN: 'arn:aws:sns:us-east-1:520411743437:AppointmentTopic',
-      DYNAMO_TABLE_NAME: 'appointments',
+      DYNAMO_TABLE_NAME: '${env:DYNAMO_TABLE_NAME}',
     },
     iam: {
       role: {
@@ -70,11 +70,11 @@ const config: AWS = {
         }
       ],
       environment: {
-        MYSQL_HOST: 'database-1.c8vq2oe4eoyh.us-east-1.rds.amazonaws.com',
-        MYSQL_USER: 'admin',
-        MYSQL_PASSWORD: 'qBZiZ5lUZm7KGNNbp3Ra',
-        MYSQL_DB: 'Agendamiento',
-        MYSQL_PORT: '3306',
+        MYSQL_HOST: '${env:MYSQL_HOST}',
+        MYSQL_USER: '${env:MYSQL_USER}',
+        MYSQL_PASSWORD: '${env:MYSQL_PASSWORD}',
+        MYSQL_DB: '${env:MYSQL_DB}',
+        MYSQL_PORT: '${env:MYSQL_PORT}',
       }
     },
     appointmentCL: {
@@ -89,11 +89,11 @@ const config: AWS = {
         }
       ],
       environment: {
-        MYSQL_HOST: 'database-1.c8vq2oe4eoyh.us-east-1.rds.amazonaws.com',
-        MYSQL_USER: 'admin',
-        MYSQL_PASSWORD: 'qBZiZ5lUZm7KGNNbp3Ra',
-        MYSQL_DB: 'Agendamiento',
-        MYSQL_PORT: '3306',
+        MYSQL_HOST: '${env:MYSQL_HOST}',
+        MYSQL_USER: '${env:MYSQL_USER}',
+        MYSQL_PASSWORD: '${env:MYSQL_PASSWORD}',
+        MYSQL_DB: '${env:MYSQL_DB}',
+        MYSQL_PORT: '${env:MYSQL_PORT}',
       }
     },
     updateStatusFromSQS: {
@@ -108,7 +108,7 @@ const config: AWS = {
         }
       ],
       environment: {
-        DYNAMO_TABLE_NAME: 'appointments'
+        DYNAMO_TABLE_NAME: '${env:DYNAMO_TABLE_NAME}'
       },
       dependsOn: ['SQSConformityUpdate', 'SQSPolicyConformityUpdate']
     },

@@ -2,7 +2,8 @@ node_modules
 .env
 dist
 coverage
-.serverless
-.serverless/*
+/.serverless/
+/.serverless/*
+/.serverless/**/*
 undefined
 *.zip

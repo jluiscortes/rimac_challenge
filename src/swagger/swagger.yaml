@@ -5,7 +5,7 @@ info:
   version: 1.0.0
 
 servers:
-  - url: https://1uv07c5y4j.execute-api.us-east-1.amazonaws.com/dev
+  - url: https://5codsuh7ie.execute-api.us-east-1.amazonaws.com/dev
     description: AWS Dev
 
 tags:
