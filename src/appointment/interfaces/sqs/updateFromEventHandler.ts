@@ -12,7 +12,7 @@ export const sqsToUpdateStatus = async (event: SQSEvent): Promise<void> => {
 
       console.log({body})
 
-      const { insuredId, status } = body;
+      const { insuredId, status } = body?.detail || {};
 
       if (!insuredId || !status) {
         console.warn('Evento inválido. Falta insuredId o status:', body);

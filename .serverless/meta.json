@@ -25,7 +25,7 @@
                   "sns:*",
                   "dynamodb:*",
                   "sqs:*",
-                  "events:PutEvents"
+                  "events:*"
                 ],
                 "Resource": "*"
               }
@@ -132,7 +132,7 @@
                             "sns:*",
                             "dynamodb:*",
                             "sqs:*",
-                            "events:PutEvents"
+                            "events:*"
                           ],
                           "Resource": "*"
                         },
@@ -189,7 +189,7 @@
               "Properties": {
                 "Code": {
                   "S3Bucket": "serverless-framework-deployments-us-east-1-5298ebdb-a2ab",
-                  "S3Key": "serverless/ms-appointment/dev/1746311286067-2025-05-03T22:28:06.067Z/ms-appointment.zip"
+                  "S3Key": "serverless/ms-appointment/dev/1746317503190-2025-05-04T00:11:43.190Z/ms-appointment.zip"
                 },
                 "Handler": "src/appointment/setup.CreateAppointmentHandler",
                 "Runtime": "nodejs18.x",
@@ -219,7 +219,7 @@
               "Properties": {
                 "Code": {
                   "S3Bucket": "serverless-framework-deployments-us-east-1-5298ebdb-a2ab",
-                  "S3Key": "serverless/ms-appointment/dev/1746311286067-2025-05-03T22:28:06.067Z/ms-appointment.zip"
+                  "S3Key": "serverless/ms-appointment/dev/1746317503190-2025-05-04T00:11:43.190Z/ms-appointment.zip"
                 },
                 "Handler": "src/appointment/setup.UpdateAppointmentStatusHandler",
                 "Runtime": "nodejs18.x",
@@ -249,7 +249,7 @@
               "Properties": {
                 "Code": {
                   "S3Bucket": "serverless-framework-deployments-us-east-1-5298ebdb-a2ab",
-                  "S3Key": "serverless/ms-appointment/dev/1746311286067-2025-05-03T22:28:06.067Z/ms-appointment.zip"
+                  "S3Key": "serverless/ms-appointment/dev/1746317503190-2025-05-04T00:11:43.190Z/ms-appointment.zip"
                 },
                 "Handler": "src/appointment_pe/interfaces/sqs/handler.handler",
                 "Runtime": "nodejs18.x",
@@ -284,7 +284,7 @@
               "Properties": {
                 "Code": {
                   "S3Bucket": "serverless-framework-deployments-us-east-1-5298ebdb-a2ab",
-                  "S3Key": "serverless/ms-appointment/dev/1746311286067-2025-05-03T22:28:06.067Z/ms-appointment.zip"
+                  "S3Key": "serverless/ms-appointment/dev/1746317503190-2025-05-04T00:11:43.190Z/ms-appointment.zip"
                 },
                 "Handler": "src/appointment_cl/interfaces/sqs/handler.handler",
                 "Runtime": "nodejs18.x",
@@ -319,7 +319,7 @@
               "Properties": {
                 "Code": {
                   "S3Bucket": "serverless-framework-deployments-us-east-1-5298ebdb-a2ab",
-                  "S3Key": "serverless/ms-appointment/dev/1746311286067-2025-05-03T22:28:06.067Z/ms-appointment.zip"
+                  "S3Key": "serverless/ms-appointment/dev/1746317503190-2025-05-04T00:11:43.190Z/ms-appointment.zip"
                 },
                 "Handler": "src/appointment/setup.SqsToUpdateStatus",
                 "Runtime": "nodejs18.x",
@@ -341,57 +341,59 @@
                 }
               },
               "DependsOn": [
-                "UpdateStatusFromSQSLogGroup"
+                "UpdateStatusFromSQSLogGroup",
+                "SQSConformityUpdate",
+                "SQSPolicyConformityUpdate"
               ]
             },
-            "InitalizeLambdaVersion8FRAqFEsakFeU8Pb9qClDax7ovuJSZn5u0m7i2ooY8": {
+            "InitalizeLambdaVersion9qLtBkp37SWNJrSLJL2AuKNb6Y2Dp41uJPv29A4WCtg": {
               "Type": "AWS::Lambda::Version",
               "DeletionPolicy": "Retain",
               "Properties": {
                 "FunctionName": {
                   "Ref": "InitalizeLambdaFunction"
                 },
-                "CodeSha256": "/c0J5ApZruOE+jF6FW0JV2edIEbBKkWjFGR1EE/DNkQ="
+                "CodeSha256": "/SUypPTOm0YfXrO2ELl9QGGD5nFOcb+ZkNTnAbcGijU="
               }
             },
-            "UpdateStatusLambdaVersionPn52GNdqvSTmXkxFcNa2Hy0eaOHJHp9SzXqB9qqbMQ": {
+            "UpdateStatusLambdaVersion2Fi426nUtea4HlK1Jp9wNWr33Zja8SuTXSukXWkjUU": {
               "Type": "AWS::Lambda::Version",
               "DeletionPolicy": "Retain",
               "Properties": {
                 "FunctionName": {
                   "Ref": "UpdateStatusLambdaFunction"
                 },
-                "CodeSha256": "/c0J5ApZruOE+jF6FW0JV2edIEbBKkWjFGR1EE/DNkQ="
+                "CodeSha256": "/SUypPTOm0YfXrO2ELl9QGGD5nFOcb+ZkNTnAbcGijU="
               }
             },
-            "AppointmentPELambdaVersionU9IuTHdH7rtvyX5KOWrryV1E4Z6YVpaXxcZIhwNJc": {
+            "AppointmentPELambdaVersiongcd8oiAnz8MG3rrivQK2YTW2sM0Br6eTmP4h4hY1Y": {
               "Type": "AWS::Lambda::Version",
               "DeletionPolicy": "Retain",
               "Properties": {
                 "FunctionName": {
                   "Ref": "AppointmentPELambdaFunction"
                 },
-                "CodeSha256": "/c0J5ApZruOE+jF6FW0JV2edIEbBKkWjFGR1EE/DNkQ="
+                "CodeSha256": "/SUypPTOm0YfXrO2ELl9QGGD5nFOcb+ZkNTnAbcGijU="
               }
             },
-            "AppointmentCLLambdaVersionmegaNOIvjzpJnzYNJiy0TbKiyuHAkxoxwDJoRKfhxk": {
+            "AppointmentCLLambdaVersionPgCzT2wYKHt0gSwjHG7nk4Xf7Mw2Y28Yh3ppeq3c": {
               "Type": "AWS::Lambda::Version",
               "DeletionPolicy": "Retain",
               "Properties": {
                 "FunctionName": {
                   "Ref": "AppointmentCLLambdaFunction"
                 },
-                "CodeSha256": "/c0J5ApZruOE+jF6FW0JV2edIEbBKkWjFGR1EE/DNkQ="
+                "CodeSha256": "/SUypPTOm0YfXrO2ELl9QGGD5nFOcb+ZkNTnAbcGijU="
               }
             },
-            "UpdateStatusFromSQSLambdaVersionRriAPRRB6X81pOCp4gLe8F45GTRn27lzPgZtumFo": {
+            "UpdateStatusFromSQSLambdaVersionK5TxzoCGP7U5MjeOeCAt2nfDxRpxgrVr7hqIMvrb0G8": {
               "Type": "AWS::Lambda::Version",
               "DeletionPolicy": "Retain",
               "Properties": {
                 "FunctionName": {
                   "Ref": "UpdateStatusFromSQSLambdaFunction"
                 },
-                "CodeSha256": "/c0J5ApZruOE+jF6FW0JV2edIEbBKkWjFGR1EE/DNkQ="
+                "CodeSha256": "/SUypPTOm0YfXrO2ELl9QGGD5nFOcb+ZkNTnAbcGijU="
               }
             },
             "ApiGatewayRestApi": {
@@ -528,7 +530,7 @@
                 "UpdateStatusLambdaPermissionApiGateway"
               ]
             },
-            "ApiGatewayDeployment1746311275572": {
+            "ApiGatewayDeployment1746317493019": {
               "Type": "AWS::ApiGateway::Deployment",
               "Properties": {
                 "RestApiId": {
@@ -830,13 +832,6 @@
                           "SQSConformityUpdate",
                           "Arn"
                         ]
-                      },
-                      "Condition": {
-                        "ArnEquals": {
-                          "aws:SourceArn": {
-                            "Fn::Sub": "arn:aws:events:${AWS::Region}:${AWS::AccountId}:event-bus/default"
-                          }
-                        }
                       }
                     }
                   ]
@@ -846,15 +841,18 @@
             "EventRuleAppointmentCreated": {
               "Type": "AWS::Events::Rule",
               "Properties": {
+                "Name": "AppointmentCreatedRule",
+                "Description": "Regla para capturar eventos de AppointmentCreated",
                 "EventBusName": "default",
                 "EventPattern": {
                   "source": [
                     "ms.appointment"
                   ],
-                  "detailType": [
+                  "detail-type": [
                     "AppointmentCreated"
                   ]
                 },
+                "State": "ENABLED",
                 "Targets": [
                   {
                     "Arn": {
@@ -866,6 +864,25 @@
                     "Id": "TargetSQSConformityUpdate"
                   }
                 ]
+              }
+            },
+            "EventBridgeToSQSPermission": {
+              "Type": "AWS::Lambda::Permission",
+              "Properties": {
+                "Action": "lambda:InvokeFunction",
+                "FunctionName": {
+                  "Fn::GetAtt": [
+                    "UpdateStatusFromSQSLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "Principal": "events.amazonaws.com",
+                "SourceArn": {
+                  "Fn::GetAtt": [
+                    "EventRuleAppointmentCreated",
+                    "Arn"
+                  ]
+                }
               }
             }
           },
@@ -879,7 +896,7 @@
             "InitalizeLambdaFunctionQualifiedArn": {
               "Description": "Current Lambda function version",
               "Value": {
-                "Ref": "InitalizeLambdaVersion8FRAqFEsakFeU8Pb9qClDax7ovuJSZn5u0m7i2ooY8"
+                "Ref": "InitalizeLambdaVersion9qLtBkp37SWNJrSLJL2AuKNb6Y2Dp41uJPv29A4WCtg"
               },
               "Export": {
                 "Name": "sls-ms-appointment-dev-InitalizeLambdaFunctionQualifiedArn"
@@ -888,7 +905,7 @@
             "UpdateStatusLambdaFunctionQualifiedArn": {
               "Description": "Current Lambda function version",
               "Value": {
-                "Ref": "UpdateStatusLambdaVersionPn52GNdqvSTmXkxFcNa2Hy0eaOHJHp9SzXqB9qqbMQ"
+                "Ref": "UpdateStatusLambdaVersion2Fi426nUtea4HlK1Jp9wNWr33Zja8SuTXSukXWkjUU"
               },
               "Export": {
                 "Name": "sls-ms-appointment-dev-UpdateStatusLambdaFunctionQualifiedArn"
@@ -897,7 +914,7 @@
             "AppointmentPELambdaFunctionQualifiedArn": {
               "Description": "Current Lambda function version",
               "Value": {
-                "Ref": "AppointmentPELambdaVersionU9IuTHdH7rtvyX5KOWrryV1E4Z6YVpaXxcZIhwNJc"
+                "Ref": "AppointmentPELambdaVersiongcd8oiAnz8MG3rrivQK2YTW2sM0Br6eTmP4h4hY1Y"
               },
               "Export": {
                 "Name": "sls-ms-appointment-dev-AppointmentPELambdaFunctionQualifiedArn"
@@ -906,7 +923,7 @@
             "AppointmentCLLambdaFunctionQualifiedArn": {
               "Description": "Current Lambda function version",
               "Value": {
-                "Ref": "AppointmentCLLambdaVersionmegaNOIvjzpJnzYNJiy0TbKiyuHAkxoxwDJoRKfhxk"
+                "Ref": "AppointmentCLLambdaVersionPgCzT2wYKHt0gSwjHG7nk4Xf7Mw2Y28Yh3ppeq3c"
               },
               "Export": {
                 "Name": "sls-ms-appointment-dev-AppointmentCLLambdaFunctionQualifiedArn"
@@ -915,7 +932,7 @@
             "UpdateStatusFromSQSLambdaFunctionQualifiedArn": {
               "Description": "Current Lambda function version",
               "Value": {
-                "Ref": "UpdateStatusFromSQSLambdaVersionRriAPRRB6X81pOCp4gLe8F45GTRn27lzPgZtumFo"
+                "Ref": "UpdateStatusFromSQSLambdaVersionK5TxzoCGP7U5MjeOeCAt2nfDxRpxgrVr7hqIMvrb0G8"
               },
               "Export": {
                 "Name": "sls-ms-appointment-dev-UpdateStatusFromSQSLambdaFunctionQualifiedArn"
@@ -972,7 +989,7 @@
           "timeout": 6,
           "runtime": "nodejs18.x",
           "vpc": {},
-          "versionLogicalId": "InitalizeLambdaVersion8FRAqFEsakFeU8Pb9qClDax7ovuJSZn5u0m7i2ooY8"
+          "versionLogicalId": "InitalizeLambdaVersion9qLtBkp37SWNJrSLJL2AuKNb6Y2Dp41uJPv29A4WCtg"
         },
         "updateStatus": {
           "handler": "src/appointment/setup.UpdateAppointmentStatusHandler",
@@ -994,7 +1011,7 @@
           "timeout": 6,
           "runtime": "nodejs18.x",
           "vpc": {},
-          "versionLogicalId": "UpdateStatusLambdaVersionPn52GNdqvSTmXkxFcNa2Hy0eaOHJHp9SzXqB9qqbMQ"
+          "versionLogicalId": "UpdateStatusLambdaVersion2Fi426nUtea4HlK1Jp9wNWr33Zja8SuTXSukXWkjUU"
         },
         "appointmentPE": {
           "handler": "src/appointment_pe/interfaces/sqs/handler.handler",
@@ -1024,7 +1041,7 @@
           "timeout": 6,
           "runtime": "nodejs18.x",
           "vpc": {},
-          "versionLogicalId": "AppointmentPELambdaVersionU9IuTHdH7rtvyX5KOWrryV1E4Z6YVpaXxcZIhwNJc"
+          "versionLogicalId": "AppointmentPELambdaVersiongcd8oiAnz8MG3rrivQK2YTW2sM0Br6eTmP4h4hY1Y"
         },
         "appointmentCL": {
           "handler": "src/appointment_cl/interfaces/sqs/handler.handler",
@@ -1054,7 +1071,7 @@
           "timeout": 6,
           "runtime": "nodejs18.x",
           "vpc": {},
-          "versionLogicalId": "AppointmentCLLambdaVersionmegaNOIvjzpJnzYNJiy0TbKiyuHAkxoxwDJoRKfhxk"
+          "versionLogicalId": "AppointmentCLLambdaVersionPgCzT2wYKHt0gSwjHG7nk4Xf7Mw2Y28Yh3ppeq3c"
         },
         "updateStatusFromSQS": {
           "handler": "src/appointment/setup.SqsToUpdateStatus",
@@ -1074,13 +1091,17 @@
             "DYNAMO_TABLE_NAME": "appointments",
             "NODE_OPTIONS": "--enable-source-maps"
           },
+          "dependsOn": [
+            "SQSConformityUpdate",
+            "SQSPolicyConformityUpdate"
+          ],
           "name": "ms-appointment-dev-updateStatusFromSQS",
           "package": {},
           "memory": 1024,
           "timeout": 6,
           "runtime": "nodejs18.x",
           "vpc": {},
-          "versionLogicalId": "UpdateStatusFromSQSLambdaVersionRriAPRRB6X81pOCp4gLe8F45GTRn27lzPgZtumFo"
+          "versionLogicalId": "UpdateStatusFromSQSLambdaVersionK5TxzoCGP7U5MjeOeCAt2nfDxRpxgrVr7hqIMvrb0G8"
         }
       },
       "resources": {
@@ -1234,13 +1255,6 @@
                         "SQSConformityUpdate",
                         "Arn"
                       ]
-                    },
-                    "Condition": {
-                      "ArnEquals": {
-                        "aws:SourceArn": {
-                          "Fn::Sub": "arn:aws:events:${AWS::Region}:${AWS::AccountId}:event-bus/default"
-                        }
-                      }
                     }
                   }
                 ]
@@ -1250,15 +1264,18 @@
           "EventRuleAppointmentCreated": {
             "Type": "AWS::Events::Rule",
             "Properties": {
+              "Name": "AppointmentCreatedRule",
+              "Description": "Regla para capturar eventos de AppointmentCreated",
               "EventBusName": "default",
               "EventPattern": {
                 "source": [
                   "ms.appointment"
                 ],
-                "detailType": [
+                "detail-type": [
                   "AppointmentCreated"
                 ]
               },
+              "State": "ENABLED",
               "Targets": [
                 {
                   "Arn": {
@@ -1270,6 +1287,25 @@
                   "Id": "TargetSQSConformityUpdate"
                 }
               ]
+            }
+          },
+          "EventBridgeToSQSPermission": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "Action": "lambda:InvokeFunction",
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "UpdateStatusFromSQSLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Principal": "events.amazonaws.com",
+              "SourceArn": {
+                "Fn::GetAtt": [
+                  "EventRuleAppointmentCreated",
+                  "Arn"
+                ]
+              }
             }
           }
         },
@@ -1293,7 +1329,7 @@
                 "sns:*",
                 "dynamodb:*",
                 "sqs:*",
-                "events:PutEvents"
+                "events:*"
               ],
               "Resource": "*"
             }
@@ -1400,7 +1436,7 @@
                           "sns:*",
                           "dynamodb:*",
                           "sqs:*",
-                          "events:PutEvents"
+                          "events:*"
                         ],
                         "Resource": "*"
                       },
@@ -1457,7 +1493,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-us-east-1-5298ebdb-a2ab",
-                "S3Key": "serverless/ms-appointment/dev/1746311286067-2025-05-03T22:28:06.067Z/ms-appointment.zip"
+                "S3Key": "serverless/ms-appointment/dev/1746317503190-2025-05-04T00:11:43.190Z/ms-appointment.zip"
               },
               "Handler": "src/appointment/setup.CreateAppointmentHandler",
               "Runtime": "nodejs18.x",
@@ -1487,7 +1523,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-us-east-1-5298ebdb-a2ab",
-                "S3Key": "serverless/ms-appointment/dev/1746311286067-2025-05-03T22:28:06.067Z/ms-appointment.zip"
+                "S3Key": "serverless/ms-appointment/dev/1746317503190-2025-05-04T00:11:43.190Z/ms-appointment.zip"
               },
               "Handler": "src/appointment/setup.UpdateAppointmentStatusHandler",
               "Runtime": "nodejs18.x",
@@ -1517,7 +1553,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-us-east-1-5298ebdb-a2ab",
-                "S3Key": "serverless/ms-appointment/dev/1746311286067-2025-05-03T22:28:06.067Z/ms-appointment.zip"
+                "S3Key": "serverless/ms-appointment/dev/1746317503190-2025-05-04T00:11:43.190Z/ms-appointment.zip"
               },
               "Handler": "src/appointment_pe/interfaces/sqs/handler.handler",
               "Runtime": "nodejs18.x",
@@ -1552,7 +1588,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-us-east-1-5298ebdb-a2ab",
-                "S3Key": "serverless/ms-appointment/dev/1746311286067-2025-05-03T22:28:06.067Z/ms-appointment.zip"
+                "S3Key": "serverless/ms-appointment/dev/1746317503190-2025-05-04T00:11:43.190Z/ms-appointment.zip"
               },
               "Handler": "src/appointment_cl/interfaces/sqs/handler.handler",
               "Runtime": "nodejs18.x",
@@ -1587,7 +1623,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-us-east-1-5298ebdb-a2ab",
-                "S3Key": "serverless/ms-appointment/dev/1746311286067-2025-05-03T22:28:06.067Z/ms-appointment.zip"
+                "S3Key": "serverless/ms-appointment/dev/1746317503190-2025-05-04T00:11:43.190Z/ms-appointment.zip"
               },
               "Handler": "src/appointment/setup.SqsToUpdateStatus",
               "Runtime": "nodejs18.x",
@@ -1609,57 +1645,59 @@
               }
             },
             "DependsOn": [
-              "UpdateStatusFromSQSLogGroup"
+              "UpdateStatusFromSQSLogGroup",
+              "SQSConformityUpdate",
+              "SQSPolicyConformityUpdate"
             ]
           },
-          "InitalizeLambdaVersion8FRAqFEsakFeU8Pb9qClDax7ovuJSZn5u0m7i2ooY8": {
+          "InitalizeLambdaVersion9qLtBkp37SWNJrSLJL2AuKNb6Y2Dp41uJPv29A4WCtg": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "InitalizeLambdaFunction"
               },
-              "CodeSha256": "/c0J5ApZruOE+jF6FW0JV2edIEbBKkWjFGR1EE/DNkQ="
+              "CodeSha256": "/SUypPTOm0YfXrO2ELl9QGGD5nFOcb+ZkNTnAbcGijU="
             }
           },
-          "UpdateStatusLambdaVersionPn52GNdqvSTmXkxFcNa2Hy0eaOHJHp9SzXqB9qqbMQ": {
+          "UpdateStatusLambdaVersion2Fi426nUtea4HlK1Jp9wNWr33Zja8SuTXSukXWkjUU": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UpdateStatusLambdaFunction"
               },
-              "CodeSha256": "/c0J5ApZruOE+jF6FW0JV2edIEbBKkWjFGR1EE/DNkQ="
+              "CodeSha256": "/SUypPTOm0YfXrO2ELl9QGGD5nFOcb+ZkNTnAbcGijU="
             }
           },
-          "AppointmentPELambdaVersionU9IuTHdH7rtvyX5KOWrryV1E4Z6YVpaXxcZIhwNJc": {
+          "AppointmentPELambdaVersiongcd8oiAnz8MG3rrivQK2YTW2sM0Br6eTmP4h4hY1Y": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AppointmentPELambdaFunction"
               },
-              "CodeSha256": "/c0J5ApZruOE+jF6FW0JV2edIEbBKkWjFGR1EE/DNkQ="
+              "CodeSha256": "/SUypPTOm0YfXrO2ELl9QGGD5nFOcb+ZkNTnAbcGijU="
             }
           },
-          "AppointmentCLLambdaVersionmegaNOIvjzpJnzYNJiy0TbKiyuHAkxoxwDJoRKfhxk": {
+          "AppointmentCLLambdaVersionPgCzT2wYKHt0gSwjHG7nk4Xf7Mw2Y28Yh3ppeq3c": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AppointmentCLLambdaFunction"
               },
-              "CodeSha256": "/c0J5ApZruOE+jF6FW0JV2edIEbBKkWjFGR1EE/DNkQ="
+              "CodeSha256": "/SUypPTOm0YfXrO2ELl9QGGD5nFOcb+ZkNTnAbcGijU="
             }
           },
-          "UpdateStatusFromSQSLambdaVersionRriAPRRB6X81pOCp4gLe8F45GTRn27lzPgZtumFo": {
+          "UpdateStatusFromSQSLambdaVersionK5TxzoCGP7U5MjeOeCAt2nfDxRpxgrVr7hqIMvrb0G8": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UpdateStatusFromSQSLambdaFunction"
               },
-              "CodeSha256": "/c0J5ApZruOE+jF6FW0JV2edIEbBKkWjFGR1EE/DNkQ="
+              "CodeSha256": "/SUypPTOm0YfXrO2ELl9QGGD5nFOcb+ZkNTnAbcGijU="
             }
           },
           "ApiGatewayRestApi": {
@@ -1796,7 +1834,7 @@
               "UpdateStatusLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1746311275572": {
+          "ApiGatewayDeployment1746317493019": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -2098,13 +2136,6 @@
                         "SQSConformityUpdate",
                         "Arn"
                       ]
-                    },
-                    "Condition": {
-                      "ArnEquals": {
-                        "aws:SourceArn": {
-                          "Fn::Sub": "arn:aws:events:${AWS::Region}:${AWS::AccountId}:event-bus/default"
-                        }
-                      }
                     }
                   }
                 ]
@@ -2114,15 +2145,18 @@
           "EventRuleAppointmentCreated": {
             "Type": "AWS::Events::Rule",
             "Properties": {
+              "Name": "AppointmentCreatedRule",
+              "Description": "Regla para capturar eventos de AppointmentCreated",
               "EventBusName": "default",
               "EventPattern": {
                 "source": [
                   "ms.appointment"
                 ],
-                "detailType": [
+                "detail-type": [
                   "AppointmentCreated"
                 ]
               },
+              "State": "ENABLED",
               "Targets": [
                 {
                   "Arn": {
@@ -2134,6 +2168,25 @@
                   "Id": "TargetSQSConformityUpdate"
                 }
               ]
+            }
+          },
+          "EventBridgeToSQSPermission": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "Action": "lambda:InvokeFunction",
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "UpdateStatusFromSQSLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Principal": "events.amazonaws.com",
+              "SourceArn": {
+                "Fn::GetAtt": [
+                  "EventRuleAppointmentCreated",
+                  "Arn"
+                ]
+              }
             }
           }
         },
@@ -2147,7 +2200,7 @@
           "InitalizeLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "InitalizeLambdaVersion8FRAqFEsakFeU8Pb9qClDax7ovuJSZn5u0m7i2ooY8"
+              "Ref": "InitalizeLambdaVersion9qLtBkp37SWNJrSLJL2AuKNb6Y2Dp41uJPv29A4WCtg"
             },
             "Export": {
               "Name": "sls-ms-appointment-dev-InitalizeLambdaFunctionQualifiedArn"
@@ -2156,7 +2209,7 @@
           "UpdateStatusLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdateStatusLambdaVersionPn52GNdqvSTmXkxFcNa2Hy0eaOHJHp9SzXqB9qqbMQ"
+              "Ref": "UpdateStatusLambdaVersion2Fi426nUtea4HlK1Jp9wNWr33Zja8SuTXSukXWkjUU"
             },
             "Export": {
               "Name": "sls-ms-appointment-dev-UpdateStatusLambdaFunctionQualifiedArn"
@@ -2165,7 +2218,7 @@
           "AppointmentPELambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AppointmentPELambdaVersionU9IuTHdH7rtvyX5KOWrryV1E4Z6YVpaXxcZIhwNJc"
+              "Ref": "AppointmentPELambdaVersiongcd8oiAnz8MG3rrivQK2YTW2sM0Br6eTmP4h4hY1Y"
             },
             "Export": {
               "Name": "sls-ms-appointment-dev-AppointmentPELambdaFunctionQualifiedArn"
@@ -2174,7 +2227,7 @@
           "AppointmentCLLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AppointmentCLLambdaVersionmegaNOIvjzpJnzYNJiy0TbKiyuHAkxoxwDJoRKfhxk"
+              "Ref": "AppointmentCLLambdaVersionPgCzT2wYKHt0gSwjHG7nk4Xf7Mw2Y28Yh3ppeq3c"
             },
             "Export": {
               "Name": "sls-ms-appointment-dev-AppointmentCLLambdaFunctionQualifiedArn"
@@ -2183,7 +2236,7 @@
           "UpdateStatusFromSQSLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdateStatusFromSQSLambdaVersionRriAPRRB6X81pOCp4gLe8F45GTRn27lzPgZtumFo"
+              "Ref": "UpdateStatusFromSQSLambdaVersionK5TxzoCGP7U5MjeOeCAt2nfDxRpxgrVr7hqIMvrb0G8"
             },
             "Export": {
               "Name": "sls-ms-appointment-dev-UpdateStatusFromSQSLambdaFunctionQualifiedArn"
@@ -2228,7 +2281,7 @@
       "serviceProvider": null,
       "instanceParameters": null
     },
-    "serviceRawFile": "import type { AWS } from '@serverless/typescript';\r\n\r\nconst config: AWS = {\r\n  service: 'ms-appointment',\r\n  plugins: ['serverless-offline'],\r\n  provider: {\r\n    name: 'aws',\r\n    runtime: 'nodejs18.x',\r\n    region: 'us-east-1',\r\n    //deploymentBucket: {\r\n    //  name: 'ms-appointment-deployment'\r\n    //},\r\n    environment: {\r\n      //SNS_TOPIC_ARN: {\r\n      //  Ref: 'AppointmentTopic'\r\n      //},\r\n      SNS_TOPIC_ARN: 'arn:aws:sns:us-east-1:520411743437:AppointmentTopic',\r\n      DYNAMO_TABLE_NAME: 'appointments',\r\n    },\r\n    iam: {\r\n      role: {\r\n        statements: [\r\n          {\r\n            Effect: 'Allow',\r\n            Action: [\r\n              'sns:*',\r\n              'dynamodb:*',\r\n              'sqs:*',\r\n              'events:PutEvents'\r\n            ],\r\n            Resource: '*'\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n  functions: {\r\n    initalize: {\r\n      handler: 'src/appointment/setup.CreateAppointmentHandler',\r\n      events: [\r\n        {\r\n          http: {\r\n            method: 'post',\r\n            path: 'initalize',\r\n          },\r\n        },\r\n      ],\r\n    },\r\n    updateStatus: {\r\n      handler: 'src/appointment/setup.UpdateAppointmentStatusHandler',\r\n      events: [\r\n        {\r\n          http: {\r\n            method: 'post',\r\n            path: 'update-status',\r\n          },\r\n        },\r\n      ],\r\n    },\r\n    appointmentPE: {\r\n      handler: 'src/appointment_pe/interfaces/sqs/handler.handler',\r\n      events: [\r\n        {\r\n          sqs: {\r\n            arn: {\r\n              'Fn::GetAtt': ['SQSAppointmentPE', 'Arn']\r\n            }\r\n          }\r\n        }\r\n      ],\r\n      environment: {\r\n        MYSQL_HOST: 'database-1.c8vq2oe4eoyh.us-east-1.rds.amazonaws.com',\r\n        MYSQL_USER: 'admin',\r\n        MYSQL_PASSWORD: 'qBZiZ5lUZm7KGNNbp3Ra',\r\n        MYSQL_DB: 'Agendamiento',\r\n        MYSQL_PORT: '3306',\r\n      }\r\n    },\r\n    appointmentCL: {\r\n      handler: 'src/appointment_cl/interfaces/sqs/handler.handler',\r\n      events: [\r\n        {\r\n          sqs: {\r\n            arn: {\r\n              'Fn::GetAtt': ['SQSAppointmentCL', 'Arn']\r\n            }\r\n          }\r\n        }\r\n      ],\r\n      environment: {\r\n        MYSQL_HOST: 'database-1.c8vq2oe4eoyh.us-east-1.rds.amazonaws.com',\r\n        MYSQL_USER: 'admin',\r\n        MYSQL_PASSWORD: 'qBZiZ5lUZm7KGNNbp3Ra',\r\n        MYSQL_DB: 'Agendamiento',\r\n        MYSQL_PORT: '3306',\r\n      }\r\n    },\r\n    updateStatusFromSQS: {\r\n      handler: 'src/appointment/setup.SqsToUpdateStatus',\r\n      events: [\r\n        {\r\n          sqs: {\r\n            arn: {\r\n              'Fn::GetAtt': ['SQSConformityUpdate', 'Arn']\r\n            }\r\n          }\r\n        }\r\n      ],\r\n      environment: {\r\n        DYNAMO_TABLE_NAME: 'appointments'\r\n      }\r\n    }\r\n    \r\n    \r\n  },\r\n  resources: {\r\n    Resources: {\r\n      // SNS Topic\r\n      AppointmentTopic: {\r\n        Type: 'AWS::SNS::Topic',\r\n        Properties: {\r\n          TopicName: 'AppointmentTopic'\r\n        }\r\n      },\r\n\r\n      // SQS Queue\r\n      SQSAppointmentPE: {\r\n        Type: 'AWS::SQS::Queue',\r\n        Properties: {\r\n          QueueName: 'sqs_pe'\r\n        }\r\n      },\r\n\r\n      // SNS to SQS Subscription\r\n      SubscriptionPE: {\r\n        Type: 'AWS::SNS::Subscription',\r\n        Properties: {\r\n          TopicArn: { Ref: 'AppointmentTopic' },\r\n          Protocol: 'sqs',\r\n          Endpoint: { 'Fn::GetAtt': ['SQSAppointmentPE', 'Arn'] },\r\n          FilterPolicy: {\r\n            countryISO: ['PE']\r\n          },\r\n          RawMessageDelivery: true\r\n        }\r\n      },\r\n\r\n      // Allow SNS to send to SQS\r\n      SQSPolicyPE: {\r\n        Type: 'AWS::SQS::QueuePolicy',\r\n        Properties: {\r\n          Queues: [{ Ref: 'SQSAppointmentPE' }],\r\n          PolicyDocument: {\r\n            Statement: [\r\n              {\r\n                Effect: 'Allow',\r\n                Principal: '*',\r\n                Action: 'sqs:SendMessage',\r\n                Resource: { 'Fn::GetAtt': ['SQSAppointmentPE', 'Arn'] },\r\n                Condition: {\r\n                  ArnEquals: {\r\n                    'aws:SourceArn': { Ref: 'AppointmentTopic' }\r\n                  }\r\n                }\r\n              }\r\n            ]\r\n          }\r\n        }\r\n      },\r\n\r\n      // SQS Queue for CL\r\n      SQSAppointmentCL: {\r\n        Type: 'AWS::SQS::Queue',\r\n        Properties: {\r\n          QueueName: 'sqs_cl'\r\n        }\r\n      },\r\n      \r\n      // SNS to SQS Subscription\r\n      SubscriptionCL: {\r\n        Type: 'AWS::SNS::Subscription',\r\n        Properties: {\r\n          TopicArn: { Ref: 'AppointmentTopic' },\r\n          Protocol: 'sqs',\r\n          Endpoint: { 'Fn::GetAtt': ['SQSAppointmentCL', 'Arn'] },\r\n          FilterPolicy: {\r\n            countryISO: ['CL']\r\n          },\r\n          RawMessageDelivery: true\r\n        }\r\n      },\r\n      \r\n      // Allow SNS to send to SQS for CL\r\n      SQSPolicyCL: {\r\n        Type: 'AWS::SQS::QueuePolicy',\r\n        Properties: {\r\n          Queues: [{ Ref: 'SQSAppointmentCL' }],\r\n          PolicyDocument: {\r\n            Statement: [\r\n              {\r\n                Effect: 'Allow',\r\n                Principal: '*',\r\n                Action: 'sqs:SendMessage',\r\n                Resource: { 'Fn::GetAtt': ['SQSAppointmentCL', 'Arn'] },\r\n                Condition: {\r\n                  ArnEquals: {\r\n                    'aws:SourceArn': { Ref: 'AppointmentTopic' }\r\n                  }\r\n                }\r\n              }\r\n            ]\r\n          }\r\n        }\r\n      },\r\n\r\n      // Event Rule for Appointment Created\r\n      SQSConformityUpdate: {\r\n        Type: 'AWS::SQS::Queue',\r\n        Properties: {\r\n          QueueName: 'sqs_conformity_update'\r\n        }\r\n      },\r\n\r\n      // Event Rule\r\n      SQSPolicyConformityUpdate: {\r\n        Type: 'AWS::SQS::QueuePolicy',\r\n        Properties: {\r\n          Queues: [{ Ref: 'SQSConformityUpdate' }],\r\n          PolicyDocument: {\r\n            Statement: [\r\n              {\r\n                Effect: 'Allow',\r\n                Principal: '*',\r\n                Action: 'sqs:SendMessage',\r\n                Resource: { 'Fn::GetAtt': ['SQSConformityUpdate', 'Arn'] },\r\n                Condition: {\r\n                  ArnEquals: {\r\n                    'aws:SourceArn': {\r\n                      'Fn::Sub': 'arn:aws:events:${AWS::Region}:${AWS::AccountId}:event-bus/default'\r\n                    }\r\n                  }\r\n                }\r\n              }\r\n            ]\r\n          }\r\n        }\r\n      },\r\n      \r\n      \r\n      // Event Rule for Appointment Created\r\n      EventRuleAppointmentCreated: {\r\n        Type: 'AWS::Events::Rule',\r\n        Properties: {\r\n          EventBusName: 'default',\r\n          EventPattern: {\r\n            source: ['ms.appointment'],\r\n            detailType: ['AppointmentCreated']\r\n          },\r\n          Targets: [\r\n            {\r\n              Arn: { 'Fn::GetAtt': ['SQSConformityUpdate', 'Arn'] },\r\n              Id: 'TargetSQSConformityUpdate'\r\n            }\r\n          ]\r\n        }\r\n      },\r\n    \r\n      // Code Deploy Bucket\r\n      //DeploymentBucket: {\r\n      //  Type: 'AWS::S3::Bucket',\r\n      //  Properties: {\r\n      //    BucketName: 'ms-appointment-deployment'\r\n      //  }\r\n      //}\r\n    }\r\n  }\r\n};\r\n\r\nmodule.exports = config;\r\n",
+    "serviceRawFile": "import type { AWS } from '@serverless/typescript';\r\n\r\nconst config: AWS = {\r\n  service: 'ms-appointment',\r\n  plugins: ['serverless-offline'],\r\n  provider: {\r\n    name: 'aws',\r\n    runtime: 'nodejs18.x',\r\n    region: 'us-east-1',\r\n    //deploymentBucket: {\r\n    //  name: 'ms-appointment-deployment'\r\n    //},\r\n    environment: {\r\n      //SNS_TOPIC_ARN: {\r\n      //  Ref: 'AppointmentTopic'\r\n      //},\r\n      SNS_TOPIC_ARN: 'arn:aws:sns:us-east-1:520411743437:AppointmentTopic',\r\n      DYNAMO_TABLE_NAME: 'appointments',\r\n    },\r\n    iam: {\r\n      role: {\r\n        statements: [\r\n          {\r\n            Effect: 'Allow',\r\n            Action: [\r\n              'sns:*',\r\n              'dynamodb:*',\r\n              'sqs:*',\r\n              'events:*'\r\n            ],\r\n            Resource: '*'\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n  functions: {\r\n    initalize: {\r\n      handler: 'src/appointment/setup.CreateAppointmentHandler',\r\n      events: [\r\n        {\r\n          http: {\r\n            method: 'post',\r\n            path: 'initalize',\r\n          },\r\n        },\r\n      ],\r\n    },\r\n    updateStatus: {\r\n      handler: 'src/appointment/setup.UpdateAppointmentStatusHandler',\r\n      events: [\r\n        {\r\n          http: {\r\n            method: 'post',\r\n            path: 'update-status',\r\n          },\r\n        },\r\n      ],\r\n    },\r\n    appointmentPE: {\r\n      handler: 'src/appointment_pe/interfaces/sqs/handler.handler',\r\n      events: [\r\n        {\r\n          sqs: {\r\n            arn: {\r\n              'Fn::GetAtt': ['SQSAppointmentPE', 'Arn']\r\n            }\r\n          }\r\n        }\r\n      ],\r\n      environment: {\r\n        MYSQL_HOST: 'database-1.c8vq2oe4eoyh.us-east-1.rds.amazonaws.com',\r\n        MYSQL_USER: 'admin',\r\n        MYSQL_PASSWORD: 'qBZiZ5lUZm7KGNNbp3Ra',\r\n        MYSQL_DB: 'Agendamiento',\r\n        MYSQL_PORT: '3306',\r\n      }\r\n    },\r\n    appointmentCL: {\r\n      handler: 'src/appointment_cl/interfaces/sqs/handler.handler',\r\n      events: [\r\n        {\r\n          sqs: {\r\n            arn: {\r\n              'Fn::GetAtt': ['SQSAppointmentCL', 'Arn']\r\n            }\r\n          }\r\n        }\r\n      ],\r\n      environment: {\r\n        MYSQL_HOST: 'database-1.c8vq2oe4eoyh.us-east-1.rds.amazonaws.com',\r\n        MYSQL_USER: 'admin',\r\n        MYSQL_PASSWORD: 'qBZiZ5lUZm7KGNNbp3Ra',\r\n        MYSQL_DB: 'Agendamiento',\r\n        MYSQL_PORT: '3306',\r\n      }\r\n    },\r\n    \r\n    updateStatusFromSQS: {\r\n      handler: 'src/appointment/setup.SqsToUpdateStatus',\r\n      events: [\r\n        {\r\n          sqs: {\r\n            arn: {\r\n              'Fn::GetAtt': ['SQSConformityUpdate', 'Arn']\r\n            }\r\n          }\r\n        }\r\n      ],\r\n      environment: {\r\n        DYNAMO_TABLE_NAME: 'appointments'\r\n      },\r\n      dependsOn: ['SQSConformityUpdate', 'SQSPolicyConformityUpdate']\r\n    }\r\n    \r\n    \r\n  },\r\n  resources: {\r\n    Resources: {\r\n      // SNS Topic\r\n      AppointmentTopic: {\r\n        Type: 'AWS::SNS::Topic',\r\n        Properties: {\r\n          TopicName: 'AppointmentTopic'\r\n        }\r\n      },\r\n\r\n      // SQS Queue\r\n      SQSAppointmentPE: {\r\n        Type: 'AWS::SQS::Queue',\r\n        Properties: {\r\n          QueueName: 'sqs_pe'\r\n        }\r\n      },\r\n\r\n      // SNS to SQS Subscription\r\n      SubscriptionPE: {\r\n        Type: 'AWS::SNS::Subscription',\r\n        Properties: {\r\n          TopicArn: { Ref: 'AppointmentTopic' },\r\n          Protocol: 'sqs',\r\n          Endpoint: { 'Fn::GetAtt': ['SQSAppointmentPE', 'Arn'] },\r\n          FilterPolicy: {\r\n            countryISO: ['PE']\r\n          },\r\n          RawMessageDelivery: true\r\n        }\r\n      },\r\n\r\n      // Allow SNS to send to SQS\r\n      SQSPolicyPE: {\r\n        Type: 'AWS::SQS::QueuePolicy',\r\n        Properties: {\r\n          Queues: [{ Ref: 'SQSAppointmentPE' }],\r\n          PolicyDocument: {\r\n            Statement: [\r\n              {\r\n                Effect: 'Allow',\r\n                Principal: '*',\r\n                Action: 'sqs:SendMessage',\r\n                Resource: { 'Fn::GetAtt': ['SQSAppointmentPE', 'Arn'] },\r\n                Condition: {\r\n                  ArnEquals: {\r\n                    'aws:SourceArn': { Ref: 'AppointmentTopic' }\r\n                  }\r\n                }\r\n              }\r\n            ]\r\n          }\r\n        }\r\n      },\r\n\r\n      // SQS Queue for CL\r\n      SQSAppointmentCL: {\r\n        Type: 'AWS::SQS::Queue',\r\n        Properties: {\r\n          QueueName: 'sqs_cl'\r\n        }\r\n      },\r\n      \r\n      // SNS to SQS Subscription\r\n      SubscriptionCL: {\r\n        Type: 'AWS::SNS::Subscription',\r\n        Properties: {\r\n          TopicArn: { Ref: 'AppointmentTopic' },\r\n          Protocol: 'sqs',\r\n          Endpoint: { 'Fn::GetAtt': ['SQSAppointmentCL', 'Arn'] },\r\n          FilterPolicy: {\r\n            countryISO: ['CL']\r\n          },\r\n          RawMessageDelivery: true\r\n        }\r\n      },\r\n      \r\n      // Allow SNS to send to SQS for CL\r\n      SQSPolicyCL: {\r\n        Type: 'AWS::SQS::QueuePolicy',\r\n        Properties: {\r\n          Queues: [{ Ref: 'SQSAppointmentCL' }],\r\n          PolicyDocument: {\r\n            Statement: [\r\n              {\r\n                Effect: 'Allow',\r\n                Principal: '*',\r\n                Action: 'sqs:SendMessage',\r\n                Resource: { 'Fn::GetAtt': ['SQSAppointmentCL', 'Arn'] },\r\n                Condition: {\r\n                  ArnEquals: {\r\n                    'aws:SourceArn': { Ref: 'AppointmentTopic' }\r\n                  }\r\n                }\r\n              }\r\n            ]\r\n          }\r\n        }\r\n      },\r\n\r\n      // Event Rule for Appointment Created\r\n      SQSConformityUpdate: {\r\n        Type: 'AWS::SQS::Queue',\r\n        Properties: {\r\n          QueueName: 'sqs_conformity_update'\r\n        }\r\n      },\r\n\r\n      // Event Rule\r\n      SQSPolicyConformityUpdate: {\r\n        Type: 'AWS::SQS::QueuePolicy',\r\n        Properties: {\r\n          Queues: [{ Ref: 'SQSConformityUpdate' }],\r\n          PolicyDocument: {\r\n            Statement: [\r\n              {\r\n                Effect: 'Allow',\r\n                Principal: '*', // Permitir cualquier servicio de AWS (incluido EventBridge)\r\n                Action: 'sqs:SendMessage',\r\n                Resource: { 'Fn::GetAtt': ['SQSConformityUpdate', 'Arn'] }\r\n              }\r\n            ]\r\n          }\r\n        }\r\n      },\r\n\r\n      // Event Rule for Appointment Created\r\n      EventRuleAppointmentCreated: {\r\n        Type: 'AWS::Events::Rule',\r\n        Properties: {\r\n          Name: 'AppointmentCreatedRule',\r\n          Description: 'Regla para capturar eventos de AppointmentCreated',\r\n          EventBusName: 'default',\r\n          EventPattern: {\r\n            source: ['ms.appointment'],\r\n            'detail-type': ['AppointmentCreated']\r\n          },\r\n          State: 'ENABLED',\r\n          Targets: [\r\n            {\r\n              Arn: { 'Fn::GetAtt': ['SQSConformityUpdate', 'Arn'] },\r\n              Id: 'TargetSQSConformityUpdate'\r\n            }\r\n          ]\r\n        }\r\n      },\r\n      // Permiso para que EventBridge pueda enviar a SQS\r\n      EventBridgeToSQSPermission: {\r\n        Type: 'AWS::Lambda::Permission',\r\n        Properties: {\r\n          Action: 'lambda:InvokeFunction',\r\n          FunctionName: { 'Fn::GetAtt': ['UpdateStatusFromSQSLambdaFunction', 'Arn'] },\r\n          Principal: 'events.amazonaws.com',\r\n          SourceArn: { 'Fn::GetAtt': ['EventRuleAppointmentCreated', 'Arn'] }\r\n        }\r\n      }\r\n    }\r\n  }\r\n};\r\n\r\nmodule.exports = config;\r\n",
     "command": [
       "deploy"
     ],
@@ -2239,44 +2292,44 @@
     "userName": "myproject12312",
     "serviceProviderAwsAccountId": "520411743437",
     "serviceProviderAwsCfStackName": "ms-appointment-dev",
-    "serviceProviderAwsCfStackId": "arn:aws:cloudformation:us-east-1:520411743437:stack/ms-appointment-dev/49ddcea0-283b-11f0-8633-123837c306e7",
-    "serviceProviderAwsCfStackCreated": "2025-05-03T16:25:55.721Z",
-    "serviceProviderAwsCfStackUpdated": "2025-05-03T21:50:18.419Z",
+    "serviceProviderAwsCfStackId": "arn:aws:cloudformation:us-east-1:520411743437:stack/ms-appointment-dev/bff78930-2879-11f0-b97b-1256d4f2c743",
+    "serviceProviderAwsCfStackCreated": "2025-05-03T23:53:02.671Z",
+    "serviceProviderAwsCfStackUpdated": "2025-05-04T00:05:26.337Z",
     "serviceProviderAwsCfStackStatus": "UPDATE_COMPLETE",
     "serviceProviderAwsCfStackOutputs": [
       {
         "OutputKey": "UpdateStatusLambdaFunctionQualifiedArn",
-        "OutputValue": "arn:aws:lambda:us-east-1:520411743437:function:ms-appointment-dev-updateStatus:13",
+        "OutputValue": "arn:aws:lambda:us-east-1:520411743437:function:ms-appointment-dev-updateStatus:19",
         "Description": "Current Lambda function version",
         "ExportName": "sls-ms-appointment-dev-UpdateStatusLambdaFunctionQualifiedArn"
       },
       {
         "OutputKey": "UpdateStatusFromSQSLambdaFunctionQualifiedArn",
-        "OutputValue": "arn:aws:lambda:us-east-1:520411743437:function:ms-appointment-dev-updateStatusFromSQS:5",
+        "OutputValue": "arn:aws:lambda:us-east-1:520411743437:function:ms-appointment-dev-updateStatusFromSQS:11",
         "Description": "Current Lambda function version",
         "ExportName": "sls-ms-appointment-dev-UpdateStatusFromSQSLambdaFunctionQualifiedArn"
       },
       {
         "OutputKey": "AppointmentCLLambdaFunctionQualifiedArn",
-        "OutputValue": "arn:aws:lambda:us-east-1:520411743437:function:ms-appointment-dev-appointmentCL:6",
+        "OutputValue": "arn:aws:lambda:us-east-1:520411743437:function:ms-appointment-dev-appointmentCL:12",
         "Description": "Current Lambda function version",
         "ExportName": "sls-ms-appointment-dev-AppointmentCLLambdaFunctionQualifiedArn"
       },
       {
         "OutputKey": "AppointmentPELambdaFunctionQualifiedArn",
-        "OutputValue": "arn:aws:lambda:us-east-1:520411743437:function:ms-appointment-dev-appointmentPE:11",
+        "OutputValue": "arn:aws:lambda:us-east-1:520411743437:function:ms-appointment-dev-appointmentPE:17",
         "Description": "Current Lambda function version",
         "ExportName": "sls-ms-appointment-dev-AppointmentPELambdaFunctionQualifiedArn"
       },
       {
         "OutputKey": "InitalizeLambdaFunctionQualifiedArn",
-        "OutputValue": "arn:aws:lambda:us-east-1:520411743437:function:ms-appointment-dev-initalize:13",
+        "OutputValue": "arn:aws:lambda:us-east-1:520411743437:function:ms-appointment-dev-initalize:19",
         "Description": "Current Lambda function version",
         "ExportName": "sls-ms-appointment-dev-InitalizeLambdaFunctionQualifiedArn"
       },
       {
         "OutputKey": "ServiceEndpoint",
-        "OutputValue": "https://qkpxpkdfpc.execute-api.us-east-1.amazonaws.com/dev",
+        "OutputValue": "https://1uv07c5y4j.execute-api.us-east-1.amazonaws.com/dev",
         "Description": "URL of the service endpoint",
         "ExportName": "sls-ms-appointment-dev-ServiceEndpoint"
       },
@@ -2384,7 +2437,7 @@
                         "sns:*",
                         "dynamodb:*",
                         "sqs:*",
-                        "events:PutEvents"
+                        "events:*"
                       ],
                       "Resource": "*"
                     },
@@ -2441,7 +2494,7 @@
           "Properties": {
             "Code": {
               "S3Bucket": "serverless-framework-deployments-us-east-1-5298ebdb-a2ab",
-              "S3Key": "serverless/ms-appointment/dev/1746311286067-2025-05-03T22:28:06.067Z/ms-appointment.zip"
+              "S3Key": "serverless/ms-appointment/dev/1746317503190-2025-05-04T00:11:43.190Z/ms-appointment.zip"
             },
             "Handler": "src/appointment/setup.CreateAppointmentHandler",
             "Runtime": "nodejs18.x",
@@ -2471,7 +2524,7 @@
           "Properties": {
             "Code": {
               "S3Bucket": "serverless-framework-deployments-us-east-1-5298ebdb-a2ab",
-              "S3Key": "serverless/ms-appointment/dev/1746311286067-2025-05-03T22:28:06.067Z/ms-appointment.zip"
+              "S3Key": "serverless/ms-appointment/dev/1746317503190-2025-05-04T00:11:43.190Z/ms-appointment.zip"
             },
             "Handler": "src/appointment/setup.UpdateAppointmentStatusHandler",
             "Runtime": "nodejs18.x",
@@ -2501,7 +2554,7 @@
           "Properties": {
             "Code": {
               "S3Bucket": "serverless-framework-deployments-us-east-1-5298ebdb-a2ab",
-              "S3Key": "serverless/ms-appointment/dev/1746311286067-2025-05-03T22:28:06.067Z/ms-appointment.zip"
+              "S3Key": "serverless/ms-appointment/dev/1746317503190-2025-05-04T00:11:43.190Z/ms-appointment.zip"
             },
             "Handler": "src/appointment_pe/interfaces/sqs/handler.handler",
             "Runtime": "nodejs18.x",
@@ -2536,7 +2589,7 @@
           "Properties": {
             "Code": {
               "S3Bucket": "serverless-framework-deployments-us-east-1-5298ebdb-a2ab",
-              "S3Key": "serverless/ms-appointment/dev/1746311286067-2025-05-03T22:28:06.067Z/ms-appointment.zip"
+              "S3Key": "serverless/ms-appointment/dev/1746317503190-2025-05-04T00:11:43.190Z/ms-appointment.zip"
             },
             "Handler": "src/appointment_cl/interfaces/sqs/handler.handler",
             "Runtime": "nodejs18.x",
@@ -2571,7 +2624,7 @@
           "Properties": {
             "Code": {
               "S3Bucket": "serverless-framework-deployments-us-east-1-5298ebdb-a2ab",
-              "S3Key": "serverless/ms-appointment/dev/1746311286067-2025-05-03T22:28:06.067Z/ms-appointment.zip"
+              "S3Key": "serverless/ms-appointment/dev/1746317503190-2025-05-04T00:11:43.190Z/ms-appointment.zip"
             },
             "Handler": "src/appointment/setup.SqsToUpdateStatus",
             "Runtime": "nodejs18.x",
@@ -2593,57 +2646,59 @@
             }
           },
           "DependsOn": [
-            "UpdateStatusFromSQSLogGroup"
+            "UpdateStatusFromSQSLogGroup",
+            "SQSConformityUpdate",
+            "SQSPolicyConformityUpdate"
           ]
         },
-        "InitalizeLambdaVersion8FRAqFEsakFeU8Pb9qClDax7ovuJSZn5u0m7i2ooY8": {
+        "InitalizeLambdaVersion9qLtBkp37SWNJrSLJL2AuKNb6Y2Dp41uJPv29A4WCtg": {
           "Type": "AWS::Lambda::Version",
           "DeletionPolicy": "Retain",
           "Properties": {
             "FunctionName": {
               "Ref": "InitalizeLambdaFunction"
             },
-            "CodeSha256": "/c0J5ApZruOE+jF6FW0JV2edIEbBKkWjFGR1EE/DNkQ="
+            "CodeSha256": "/SUypPTOm0YfXrO2ELl9QGGD5nFOcb+ZkNTnAbcGijU="
           }
         },
-        "UpdateStatusLambdaVersionPn52GNdqvSTmXkxFcNa2Hy0eaOHJHp9SzXqB9qqbMQ": {
+        "UpdateStatusLambdaVersion2Fi426nUtea4HlK1Jp9wNWr33Zja8SuTXSukXWkjUU": {
           "Type": "AWS::Lambda::Version",
           "DeletionPolicy": "Retain",
           "Properties": {
             "FunctionName": {
               "Ref": "UpdateStatusLambdaFunction"
             },
-            "CodeSha256": "/c0J5ApZruOE+jF6FW0JV2edIEbBKkWjFGR1EE/DNkQ="
+            "CodeSha256": "/SUypPTOm0YfXrO2ELl9QGGD5nFOcb+ZkNTnAbcGijU="
           }
         },
-        "AppointmentPELambdaVersionU9IuTHdH7rtvyX5KOWrryV1E4Z6YVpaXxcZIhwNJc": {
+        "AppointmentPELambdaVersiongcd8oiAnz8MG3rrivQK2YTW2sM0Br6eTmP4h4hY1Y": {
           "Type": "AWS::Lambda::Version",
           "DeletionPolicy": "Retain",
           "Properties": {
             "FunctionName": {
               "Ref": "AppointmentPELambdaFunction"
             },
-            "CodeSha256": "/c0J5ApZruOE+jF6FW0JV2edIEbBKkWjFGR1EE/DNkQ="
+            "CodeSha256": "/SUypPTOm0YfXrO2ELl9QGGD5nFOcb+ZkNTnAbcGijU="
           }
         },
-        "AppointmentCLLambdaVersionmegaNOIvjzpJnzYNJiy0TbKiyuHAkxoxwDJoRKfhxk": {
+        "AppointmentCLLambdaVersionPgCzT2wYKHt0gSwjHG7nk4Xf7Mw2Y28Yh3ppeq3c": {
           "Type": "AWS::Lambda::Version",
           "DeletionPolicy": "Retain",
           "Properties": {
             "FunctionName": {
               "Ref": "AppointmentCLLambdaFunction"
             },
-            "CodeSha256": "/c0J5ApZruOE+jF6FW0JV2edIEbBKkWjFGR1EE/DNkQ="
+            "CodeSha256": "/SUypPTOm0YfXrO2ELl9QGGD5nFOcb+ZkNTnAbcGijU="
           }
         },
-        "UpdateStatusFromSQSLambdaVersionRriAPRRB6X81pOCp4gLe8F45GTRn27lzPgZtumFo": {
+        "UpdateStatusFromSQSLambdaVersionK5TxzoCGP7U5MjeOeCAt2nfDxRpxgrVr7hqIMvrb0G8": {
           "Type": "AWS::Lambda::Version",
           "DeletionPolicy": "Retain",
           "Properties": {
             "FunctionName": {
               "Ref": "UpdateStatusFromSQSLambdaFunction"
             },
-            "CodeSha256": "/c0J5ApZruOE+jF6FW0JV2edIEbBKkWjFGR1EE/DNkQ="
+            "CodeSha256": "/SUypPTOm0YfXrO2ELl9QGGD5nFOcb+ZkNTnAbcGijU="
           }
         },
         "ApiGatewayRestApi": {
@@ -2780,7 +2835,7 @@
             "UpdateStatusLambdaPermissionApiGateway"
           ]
         },
-        "ApiGatewayDeployment1746311275572": {
+        "ApiGatewayDeployment1746317493019": {
           "Type": "AWS::ApiGateway::Deployment",
           "Properties": {
             "RestApiId": {
@@ -3082,13 +3137,6 @@
                       "SQSConformityUpdate",
                       "Arn"
                     ]
-                  },
-                  "Condition": {
-                    "ArnEquals": {
-                      "aws:SourceArn": {
-                        "Fn::Sub": "arn:aws:events:${AWS::Region}:${AWS::AccountId}:event-bus/default"
-                      }
-                    }
                   }
                 }
               ]
@@ -3098,15 +3146,18 @@
         "EventRuleAppointmentCreated": {
           "Type": "AWS::Events::Rule",
           "Properties": {
+            "Name": "AppointmentCreatedRule",
+            "Description": "Regla para capturar eventos de AppointmentCreated",
             "EventBusName": "default",
             "EventPattern": {
               "source": [
                 "ms.appointment"
               ],
-              "detailType": [
+              "detail-type": [
                 "AppointmentCreated"
               ]
             },
+            "State": "ENABLED",
             "Targets": [
               {
                 "Arn": {
@@ -3118,6 +3169,25 @@
                 "Id": "TargetSQSConformityUpdate"
               }
             ]
+          }
+        },
+        "EventBridgeToSQSPermission": {
+          "Type": "AWS::Lambda::Permission",
+          "Properties": {
+            "Action": "lambda:InvokeFunction",
+            "FunctionName": {
+              "Fn::GetAtt": [
+                "UpdateStatusFromSQSLambdaFunction",
+                "Arn"
+              ]
+            },
+            "Principal": "events.amazonaws.com",
+            "SourceArn": {
+              "Fn::GetAtt": [
+                "EventRuleAppointmentCreated",
+                "Arn"
+              ]
+            }
           }
         }
       },
@@ -3131,7 +3201,7 @@
         "InitalizeLambdaFunctionQualifiedArn": {
           "Description": "Current Lambda function version",
           "Value": {
-            "Ref": "InitalizeLambdaVersion8FRAqFEsakFeU8Pb9qClDax7ovuJSZn5u0m7i2ooY8"
+            "Ref": "InitalizeLambdaVersion9qLtBkp37SWNJrSLJL2AuKNb6Y2Dp41uJPv29A4WCtg"
           },
           "Export": {
             "Name": "sls-ms-appointment-dev-InitalizeLambdaFunctionQualifiedArn"
@@ -3140,7 +3210,7 @@
         "UpdateStatusLambdaFunctionQualifiedArn": {
           "Description": "Current Lambda function version",
           "Value": {
-            "Ref": "UpdateStatusLambdaVersionPn52GNdqvSTmXkxFcNa2Hy0eaOHJHp9SzXqB9qqbMQ"
+            "Ref": "UpdateStatusLambdaVersion2Fi426nUtea4HlK1Jp9wNWr33Zja8SuTXSukXWkjUU"
           },
           "Export": {
             "Name": "sls-ms-appointment-dev-UpdateStatusLambdaFunctionQualifiedArn"
@@ -3149,7 +3219,7 @@
         "AppointmentPELambdaFunctionQualifiedArn": {
           "Description": "Current Lambda function version",
           "Value": {
-            "Ref": "AppointmentPELambdaVersionU9IuTHdH7rtvyX5KOWrryV1E4Z6YVpaXxcZIhwNJc"
+            "Ref": "AppointmentPELambdaVersiongcd8oiAnz8MG3rrivQK2YTW2sM0Br6eTmP4h4hY1Y"
           },
           "Export": {
             "Name": "sls-ms-appointment-dev-AppointmentPELambdaFunctionQualifiedArn"
@@ -3158,7 +3228,7 @@
         "AppointmentCLLambdaFunctionQualifiedArn": {
           "Description": "Current Lambda function version",
           "Value": {
-            "Ref": "AppointmentCLLambdaVersionmegaNOIvjzpJnzYNJiy0TbKiyuHAkxoxwDJoRKfhxk"
+            "Ref": "AppointmentCLLambdaVersionPgCzT2wYKHt0gSwjHG7nk4Xf7Mw2Y28Yh3ppeq3c"
           },
           "Export": {
             "Name": "sls-ms-appointment-dev-AppointmentCLLambdaFunctionQualifiedArn"
@@ -3167,7 +3237,7 @@
         "UpdateStatusFromSQSLambdaFunctionQualifiedArn": {
           "Description": "Current Lambda function version",
           "Value": {
-            "Ref": "UpdateStatusFromSQSLambdaVersionRriAPRRB6X81pOCp4gLe8F45GTRn27lzPgZtumFo"
+            "Ref": "UpdateStatusFromSQSLambdaVersionK5TxzoCGP7U5MjeOeCAt2nfDxRpxgrVr7hqIMvrb0G8"
           },
           "Export": {
             "Name": "sls-ms-appointment-dev-UpdateStatusFromSQSLambdaFunctionQualifiedArn"

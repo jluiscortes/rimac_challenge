@@ -26,7 +26,7 @@ const config: AWS = {
               'sns:*',
               'dynamodb:*',
               'sqs:*',
-              'events:PutEvents'
+              'events:*'
             ],
             Resource: '*'
           }
@@ -95,6 +95,7 @@ const config: AWS = {
         MYSQL_PORT: '3306',
       }
     },
+    
     updateStatusFromSQS: {
       handler: 'src/appointment/setup.SqsToUpdateStatus',
       events: [
@@ -108,7 +109,8 @@ const config: AWS = {
       ],
       environment: {
         DYNAMO_TABLE_NAME: 'appointments'
-      }
+      },
+      dependsOn: ['SQSConformityUpdate', 'SQSPolicyConformityUpdate']
     }
     
     
@@ -230,32 +232,27 @@ const config: AWS = {
             Statement: [
               {
                 Effect: 'Allow',
-                Principal: '*',
+                Principal: '*', // Permitir cualquier servicio de AWS (incluido EventBridge)
                 Action: 'sqs:SendMessage',
-                Resource: { 'Fn::GetAtt': ['SQSConformityUpdate', 'Arn'] },
-                Condition: {
-                  ArnEquals: {
-                    'aws:SourceArn': {
-                      'Fn::Sub': 'arn:aws:events:${AWS::Region}:${AWS::AccountId}:event-bus/default'
-                    }
-                  }
-                }
+                Resource: { 'Fn::GetAtt': ['SQSConformityUpdate', 'Arn'] }
               }
             ]
           }
         }
       },
-      
-      
+
       // Event Rule for Appointment Created
       EventRuleAppointmentCreated: {
         Type: 'AWS::Events::Rule',
         Properties: {
+          Name: 'AppointmentCreatedRule',
+          Description: 'Regla para capturar eventos de AppointmentCreated',
           EventBusName: 'default',
           EventPattern: {
             source: ['ms.appointment'],
-            detailType: ['AppointmentCreated']
+            'detail-type': ['AppointmentCreated']
           },
+          State: 'ENABLED',
           Targets: [
             {
               Arn: { 'Fn::GetAtt': ['SQSConformityUpdate', 'Arn'] },
@@ -264,14 +261,16 @@ const config: AWS = {
           ]
         }
       },
-    
-      // Code Deploy Bucket
-      //DeploymentBucket: {
-      //  Type: 'AWS::S3::Bucket',
-      //  Properties: {
-      //    BucketName: 'ms-appointment-deployment'
-      //  }
-      //}
+      // Permiso para que EventBridge pueda enviar a SQS
+      EventBridgeToSQSPermission: {
+        Type: 'AWS::Lambda::Permission',
+        Properties: {
+          Action: 'lambda:InvokeFunction',
+          FunctionName: { 'Fn::GetAtt': ['UpdateStatusFromSQSLambdaFunction', 'Arn'] },
+          Principal: 'events.amazonaws.com',
+          SourceArn: { 'Fn::GetAtt': ['EventRuleAppointmentCreated', 'Arn'] }
+        }
+      }
     }
   }
 };
