@@ -2,6 +2,75 @@
   "AWSTemplateFormatVersion": "2010-09-09",
   "Description": "The AWS CloudFormation template for this Serverless application",
   "Resources": {
+    "ServerlessDeploymentBucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "ServerlessDeploymentBucketPolicy": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": {
+          "Ref": "ServerlessDeploymentBucket"
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:*",
+              "Effect": "Deny",
+              "Principal": "*",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":s3:::",
+                      {
+                        "Ref": "ServerlessDeploymentBucket"
+                      },
+                      "/*"
+                    ]
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":s3:::",
+                      {
+                        "Ref": "ServerlessDeploymentBucket"
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": false
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
     "CreateLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
@@ -152,8 +221,10 @@
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
-          "S3Bucket": "serverless-framework-deployments-us-east-1-5298ebdb-a2ab",
-          "S3Key": "serverless/ms-appointment/dev/1746367085646-2025-05-04T13:58:05.646Z/ms-appointment.zip"
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/ms-appointment/dev/1746367592131-2025-05-04T14:06:32.131Z/ms-appointment.zip"
         },
         "Handler": "src/appointment/setup.CreateAppointmentHandler",
         "Runtime": "nodejs18.x",
@@ -165,8 +236,7 @@
             "SNS_TOPIC_ARN": {
               "Ref": "AppointmentTopic"
             },
-            "DYNAMO_TABLE_NAME": "appointments",
-            "NODE_OPTIONS": "--enable-source-maps"
+            "DYNAMO_TABLE_NAME": "appointments"
           }
         },
         "Role": {
@@ -184,8 +254,10 @@
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
-          "S3Bucket": "serverless-framework-deployments-us-east-1-5298ebdb-a2ab",
-          "S3Key": "serverless/ms-appointment/dev/1746367085646-2025-05-04T13:58:05.646Z/ms-appointment.zip"
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/ms-appointment/dev/1746367592131-2025-05-04T14:06:32.131Z/ms-appointment.zip"
         },
         "Handler": "src/appointment_pe/interfaces/sqs/handler.handler",
         "Runtime": "nodejs18.x",
@@ -202,8 +274,7 @@
             "MYSQL_USER": "admin",
             "MYSQL_PASSWORD": "qBZiZ5lUZm7KGNNbp3Ra",
             "MYSQL_DB": "Agendamiento",
-            "MYSQL_PORT": "3306",
-            "NODE_OPTIONS": "--enable-source-maps"
+            "MYSQL_PORT": "3306"
           }
         },
         "Role": {
@@ -221,8 +292,10 @@
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
-          "S3Bucket": "serverless-framework-deployments-us-east-1-5298ebdb-a2ab",
-          "S3Key": "serverless/ms-appointment/dev/1746367085646-2025-05-04T13:58:05.646Z/ms-appointment.zip"
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/ms-appointment/dev/1746367592131-2025-05-04T14:06:32.131Z/ms-appointment.zip"
         },
         "Handler": "src/appointment_cl/interfaces/sqs/handler.handler",
         "Runtime": "nodejs18.x",
@@ -239,8 +312,7 @@
             "MYSQL_USER": "admin",
             "MYSQL_PASSWORD": "qBZiZ5lUZm7KGNNbp3Ra",
             "MYSQL_DB": "Agendamiento",
-            "MYSQL_PORT": "3306",
-            "NODE_OPTIONS": "--enable-source-maps"
+            "MYSQL_PORT": "3306"
           }
         },
         "Role": {
@@ -258,8 +330,10 @@
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
-          "S3Bucket": "serverless-framework-deployments-us-east-1-5298ebdb-a2ab",
-          "S3Key": "serverless/ms-appointment/dev/1746367085646-2025-05-04T13:58:05.646Z/ms-appointment.zip"
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/ms-appointment/dev/1746367592131-2025-05-04T14:06:32.131Z/ms-appointment.zip"
         },
         "Handler": "src/appointment/setup.SqsToUpdateStatus",
         "Runtime": "nodejs18.x",
@@ -271,8 +345,7 @@
             "SNS_TOPIC_ARN": {
               "Ref": "AppointmentTopic"
             },
-            "DYNAMO_TABLE_NAME": "appointments",
-            "NODE_OPTIONS": "--enable-source-maps"
+            "DYNAMO_TABLE_NAME": "appointments"
           }
         },
         "Role": {
@@ -292,8 +365,10 @@
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
-          "S3Bucket": "serverless-framework-deployments-us-east-1-5298ebdb-a2ab",
-          "S3Key": "serverless/ms-appointment/dev/1746367085646-2025-05-04T13:58:05.646Z/ms-appointment.zip"
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/ms-appointment/dev/1746367592131-2025-05-04T14:06:32.131Z/ms-appointment.zip"
         },
         "Handler": "src/appointment/setup.FindAllAppointmentHandler",
         "Runtime": "nodejs18.x",
@@ -305,8 +380,7 @@
             "SNS_TOPIC_ARN": {
               "Ref": "AppointmentTopic"
             },
-            "DYNAMO_TABLE_NAME": "appointments",
-            "NODE_OPTIONS": "--enable-source-maps"
+            "DYNAMO_TABLE_NAME": "appointments"
           }
         },
         "Role": {
@@ -320,54 +394,54 @@
         "AppointmentsLogGroup"
       ]
     },
-    "CreateLambdaVersion7TJcH1I4wICPNccii6UH9hU1eJnjcxqvb78LbltVs": {
+    "CreateLambdaVersiontsr89o6dpfs5HppliMevcOWdywZsLbHG8kocXpu0g": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "CreateLambdaFunction"
         },
-        "CodeSha256": "kNwW5mfum6zkAyapX5tBpBONJjX/xzeSd0aWsx8CdjE="
+        "CodeSha256": "+zpke0euWhPkfmNR+aWAAfnOfQDsOIJiTVQXBX5JV8U="
       }
     },
-    "AppointmentPELambdaVersionxAPID7JHGTNerA4k3NeEWOB9k36e96pFzwRb7rClPE": {
+    "AppointmentPELambdaVersion40LjVSmxlNybaqUSzsgiZlGaZSekZI3Kxa6i44Dh4M": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AppointmentPELambdaFunction"
         },
-        "CodeSha256": "kNwW5mfum6zkAyapX5tBpBONJjX/xzeSd0aWsx8CdjE="
+        "CodeSha256": "+zpke0euWhPkfmNR+aWAAfnOfQDsOIJiTVQXBX5JV8U="
       }
     },
-    "AppointmentCLLambdaVersiongBCIE1Py4oXk3lCEV1OvmCC4JL9Jkc0r0bKZiq12GJY": {
+    "AppointmentCLLambdaVersionU3sW1by2IIz1JzOzvK7ZFuyJOzdWax0DEHmfLaRW0": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AppointmentCLLambdaFunction"
         },
-        "CodeSha256": "kNwW5mfum6zkAyapX5tBpBONJjX/xzeSd0aWsx8CdjE="
+        "CodeSha256": "+zpke0euWhPkfmNR+aWAAfnOfQDsOIJiTVQXBX5JV8U="
       }
     },
-    "UpdateStatusFromSQSLambdaVersionDMtTt83V4gSEA4YxZHTT60saEM9dTTInr8xYLiKKAY": {
+    "UpdateStatusFromSQSLambdaVersion6iE8wm8WxF9RUNMEcTfmya0OF62QwhJEKYMNVFCh88": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "UpdateStatusFromSQSLambdaFunction"
         },
-        "CodeSha256": "kNwW5mfum6zkAyapX5tBpBONJjX/xzeSd0aWsx8CdjE="
+        "CodeSha256": "+zpke0euWhPkfmNR+aWAAfnOfQDsOIJiTVQXBX5JV8U="
       }
     },
-    "AppointmentsLambdaVersion6sm7T3cBGkaaqklnwruN5oDffOWPFN5Tf7J7UDjqjus": {
+    "AppointmentsLambdaVersionVwpDHKqxDo4a3ThTDaYUE31WTTAtGIYTTzm74HmcCrk": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AppointmentsLambdaFunction"
         },
-        "CodeSha256": "kNwW5mfum6zkAyapX5tBpBONJjX/xzeSd0aWsx8CdjE="
+        "CodeSha256": "+zpke0euWhPkfmNR+aWAAfnOfQDsOIJiTVQXBX5JV8U="
       }
     },
     "ApiGatewayRestApi": {
@@ -595,7 +669,7 @@
         "AppointmentsLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1746367075139": {
+    "ApiGatewayDeployment1746367570031": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -955,7 +1029,9 @@
   },
   "Outputs": {
     "ServerlessDeploymentBucketName": {
-      "Value": "serverless-framework-deployments-us-east-1-5298ebdb-a2ab",
+      "Value": {
+        "Ref": "ServerlessDeploymentBucket"
+      },
       "Export": {
         "Name": "sls-ms-appointment-dev-ServerlessDeploymentBucketName"
       }
@@ -963,7 +1039,7 @@
     "CreateLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "CreateLambdaVersion7TJcH1I4wICPNccii6UH9hU1eJnjcxqvb78LbltVs"
+        "Ref": "CreateLambdaVersiontsr89o6dpfs5HppliMevcOWdywZsLbHG8kocXpu0g"
       },
       "Export": {
         "Name": "sls-ms-appointment-dev-CreateLambdaFunctionQualifiedArn"
@@ -972,7 +1048,7 @@
     "AppointmentPELambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AppointmentPELambdaVersionxAPID7JHGTNerA4k3NeEWOB9k36e96pFzwRb7rClPE"
+        "Ref": "AppointmentPELambdaVersion40LjVSmxlNybaqUSzsgiZlGaZSekZI3Kxa6i44Dh4M"
       },
       "Export": {
         "Name": "sls-ms-appointment-dev-AppointmentPELambdaFunctionQualifiedArn"
@@ -981,7 +1057,7 @@
     "AppointmentCLLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AppointmentCLLambdaVersiongBCIE1Py4oXk3lCEV1OvmCC4JL9Jkc0r0bKZiq12GJY"
+        "Ref": "AppointmentCLLambdaVersionU3sW1by2IIz1JzOzvK7ZFuyJOzdWax0DEHmfLaRW0"
       },
       "Export": {
         "Name": "sls-ms-appointment-dev-AppointmentCLLambdaFunctionQualifiedArn"
@@ -990,7 +1066,7 @@
     "UpdateStatusFromSQSLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "UpdateStatusFromSQSLambdaVersionDMtTt83V4gSEA4YxZHTT60saEM9dTTInr8xYLiKKAY"
+        "Ref": "UpdateStatusFromSQSLambdaVersion6iE8wm8WxF9RUNMEcTfmya0OF62QwhJEKYMNVFCh88"
       },
       "Export": {
         "Name": "sls-ms-appointment-dev-UpdateStatusFromSQSLambdaFunctionQualifiedArn"
@@ -999,7 +1075,7 @@
     "AppointmentsLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AppointmentsLambdaVersion6sm7T3cBGkaaqklnwruN5oDffOWPFN5Tf7J7UDjqjus"
+        "Ref": "AppointmentsLambdaVersionVwpDHKqxDo4a3ThTDaYUE31WTTAtGIYTTzm74HmcCrk"
       },
       "Export": {
         "Name": "sls-ms-appointment-dev-AppointmentsLambdaFunctionQualifiedArn"
