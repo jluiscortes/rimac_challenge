@@ -1,8 +1,14 @@
 import type { AWS } from '@serverless/typescript';
+import { 
+  DYNAMO_TABLE_NAME,
+  MYSQL_DB,MYSQL_HOST,
+  MYSQL_PASSWORD,
+  MYSQL_PORT,
+  MYSQL_USER } from './config'
 
 const config: AWS = {
   service: 'ms-appointment',
-  plugins: ['serverless-offline', 'serverless-dotenv-plugin'],
+  plugins: ['serverless-offline'],
   provider: {
     name: 'aws',
     runtime: 'nodejs18.x',
@@ -15,7 +21,7 @@ const config: AWS = {
         Ref: 'AppointmentTopic'
       },
       //SNS_TOPIC_ARN: 'arn:aws:sns:us-east-1:520411743437:AppointmentTopic',
-      DYNAMO_TABLE_NAME: '${env:DYNAMO_TABLE_NAME}',
+      DYNAMO_TABLE_NAME: DYNAMO_TABLE_NAME
     },
     iam: {
       role: {
@@ -70,11 +76,11 @@ const config: AWS = {
         }
       ],
       environment: {
-        MYSQL_HOST: '${env:MYSQL_HOST}',
-        MYSQL_USER: '${env:MYSQL_USER}',
-        MYSQL_PASSWORD: '${env:MYSQL_PASSWORD}',
-        MYSQL_DB: '${env:MYSQL_DB}',
-        MYSQL_PORT: '${env:MYSQL_PORT}',
+        MYSQL_HOST: MYSQL_HOST,
+        MYSQL_USER: MYSQL_USER,
+        MYSQL_PASSWORD: MYSQL_PASSWORD,
+        MYSQL_DB: MYSQL_DB,
+        MYSQL_PORT: MYSQL_PORT,
       }
     },
     appointmentCL: {
@@ -89,11 +95,11 @@ const config: AWS = {
         }
       ],
       environment: {
-        MYSQL_HOST: '${env:MYSQL_HOST}',
-        MYSQL_USER: '${env:MYSQL_USER}',
-        MYSQL_PASSWORD: '${env:MYSQL_PASSWORD}',
-        MYSQL_DB: '${env:MYSQL_DB}',
-        MYSQL_PORT: '${env:MYSQL_PORT}',
+        MYSQL_HOST: MYSQL_HOST,
+        MYSQL_USER: MYSQL_USER,
+        MYSQL_PASSWORD: MYSQL_PASSWORD,
+        MYSQL_DB: MYSQL_DB,
+        MYSQL_PORT: MYSQL_PORT,
       }
     },
     updateStatusFromSQS: {
@@ -108,7 +114,7 @@ const config: AWS = {
         }
       ],
       environment: {
-        DYNAMO_TABLE_NAME: '${env:DYNAMO_TABLE_NAME}'
+        DYNAMO_TABLE_NAME: DYNAMO_TABLE_NAME,
       },
       dependsOn: ['SQSConformityUpdate', 'SQSPolicyConformityUpdate']
     },
