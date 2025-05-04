@@ -56,7 +56,7 @@ app.get('/swagger.json', (_req, res) => {
 const swaggerOptions = {
   explorer: true,
   swaggerOptions: {
-    url: '/swagger.json', // Usar el endpoint local en lugar de cargar directamente
+    url: '/swagger.json',
   }
 };
 
