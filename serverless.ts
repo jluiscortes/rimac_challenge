@@ -11,10 +11,10 @@ const config: AWS = {
     //  name: 'ms-appointment-deployment'
     //},
     environment: {
-      //SNS_TOPIC_ARN: {
-      //  Ref: 'AppointmentTopic'
-      //},
-      SNS_TOPIC_ARN: 'arn:aws:sns:us-east-1:520411743437:AppointmentTopic',
+      SNS_TOPIC_ARN: {
+        Ref: 'AppointmentTopic'
+      },
+      //SNS_TOPIC_ARN: 'arn:aws:sns:us-east-1:520411743437:AppointmentTopic',
       DYNAMO_TABLE_NAME: 'appointments',
     },
     iam: {
@@ -35,24 +35,25 @@ const config: AWS = {
     }
   },
   functions: {
-    initalize: {
+    create: {
       handler: 'src/appointment/setup.CreateAppointmentHandler',
       events: [
         {
           http: {
             method: 'post',
-            path: 'initalize',
-          },
-        },
-      ],
-    },
-    updateStatus: {
-      handler: 'src/appointment/setup.UpdateAppointmentStatusHandler',
-      events: [
-        {
-          http: {
-            method: 'post',
-            path: 'update-status',
+            path: 'appointments/create',
+            cors: {
+              origin: '*',
+              headers: [
+                'Content-Type',
+                'X-Amz-Date',
+                'Authorization',
+                'X-Api-Key',
+                'X-Amz-Security-Token',
+                'X-Amz-User-Agent'
+              ],
+              allowCredentials: true,
+            }
           },
         },
       ],
@@ -95,7 +96,6 @@ const config: AWS = {
         MYSQL_PORT: '3306',
       }
     },
-    
     updateStatusFromSQS: {
       handler: 'src/appointment/setup.SqsToUpdateStatus',
       events: [
@@ -111,9 +111,30 @@ const config: AWS = {
         DYNAMO_TABLE_NAME: 'appointments'
       },
       dependsOn: ['SQSConformityUpdate', 'SQSPolicyConformityUpdate']
-    }
-    
-    
+    },
+    appointments: {
+      handler: 'src/appointment/setup.FindAllAppointmentHandler',
+      events: [
+        {
+          http: {
+            method: 'get',
+            path: 'appointments',
+            cors: {
+              origin: '*',
+              headers: [
+                'Content-Type',
+                'X-Amz-Date',
+                'Authorization',
+                'X-Api-Key',
+                'X-Amz-Security-Token',
+                'X-Amz-User-Agent'
+              ],
+              allowCredentials: true,
+            }
+          },
+        },
+      ],
+    },
   },
   resources: {
     Resources: {

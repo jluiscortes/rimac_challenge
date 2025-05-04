@@ -16,6 +16,10 @@ export const createAppointmentHandler: APIGatewayProxyHandler = async (event) =>
     if (!validation.valid) {
       return {
         statusCode: 400,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({ error: validation.message }),
       };
     }
@@ -23,11 +27,19 @@ export const createAppointmentHandler: APIGatewayProxyHandler = async (event) =>
     const result = await useCase.execute(body);
     return {
       statusCode: 202,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({ message: 'Agendamiento en proceso', data: result }),
     };
   } catch (err: any) {
     return {
       statusCode: 500,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({ error: 'Error interno', details: err.message }),
     };
   }

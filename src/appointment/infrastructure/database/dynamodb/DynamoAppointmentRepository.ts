@@ -38,6 +38,14 @@ export class DynamoAppointmentRepository implements IAppointmentRepository {
       },
     }).promise();
   }
+
+  async findAll(): Promise<Appointment[]> {
+    const result = await db.scan({
+      TableName: TABLE,
+    }).promise();
+
+    return result.Items as Appointment[];
+  }
   
   
 }

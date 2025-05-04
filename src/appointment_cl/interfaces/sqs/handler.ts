@@ -1,22 +1,24 @@
 import { SQSEvent } from 'aws-lambda';
 import { MySQLAppointmentWriter } from '../../infrastructure/database/mysql/MySQLAppointmentWriter';
-import { PersistAppointment } from '../../application/usecases/PersistAppointment';
-import { Appointment } from '../../domain/entities/Appointment';
+import { EventBridgeAppointmentPublisher } from '../../interfaces/events/EventBridgeAppointmentPublisher';
+import { SendAppointmentEvent } from '../../application/usecases/SendAppointmentEvent';
+import { Appointment } from '../../../appointment/domain/entities/Appointment';
 
 const writer = new MySQLAppointmentWriter();
-const useCase = new PersistAppointment(writer);
+const publisher = new EventBridgeAppointmentPublisher();
+const sendAppointmentEvent = new SendAppointmentEvent(publisher);
 
-export const handler = async (event: SQSEvent) => {
+export const handler = async (event: SQSEvent): Promise<void> => {
   for (const record of event.Records) {
-    const message: Appointment = JSON.parse(record.body);
-
-    console.log({message});
-
     try {
-      await useCase.execute(message);
-      console.log(`Inserted appointment: ${message.insuredId}`);
+      const appointment: Appointment = JSON.parse(record.body);
+
+      await writer.save(appointment);
+      await sendAppointmentEvent.execute(appointment);
+
+      console.log(`Cita insertada y evento emitido: ${appointment.insuredId}`);
     } catch (error: any) {
-      console.error(`Error inserting appointment: ${error.message}`);
+      console.error('Error al procesar evento SQS:', error.message);
     }
   }
 };
