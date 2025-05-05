@@ -10,6 +10,8 @@ export const findAllAppointmentHandler: APIGatewayProxyHandler = async () => {
   try {
 
     const appointments = await useCase.execute();
+
+    const safeAppointments = appointments || [];
     
     return {
       statusCode: 200,
@@ -19,8 +21,8 @@ export const findAllAppointmentHandler: APIGatewayProxyHandler = async () => {
       },
       body: JSON.stringify({
         success: true,
-        data: appointments,
-        count: appointments.length,
+        data: safeAppointments,
+        count: safeAppointments.length,
         message: 'Appointments recuperados exitosamente',
       }),
     };

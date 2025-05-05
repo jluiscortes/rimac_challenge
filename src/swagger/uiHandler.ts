@@ -1,4 +1,3 @@
-// src/app.ts
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
