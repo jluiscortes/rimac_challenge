@@ -31,6 +31,7 @@ MYSQL_USER=admin
 MYSQL_PASSWORD=yourPassword
 MYSQL_DB=Agendamiento
 MYSQL_PORT=3306
+DYNAMO_TABLE_NAME=appointments
 ```
 
 ---
