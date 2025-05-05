@@ -3,7 +3,7 @@ name: Deploy to AWS with Serverless
 on:
   push:
     branches:
-      - main
+      - test # desabilitado por fixs de packages build
 
 jobs:
   deploy:
