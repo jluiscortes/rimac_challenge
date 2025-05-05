@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "swagger": "npx ts-node src/swagger/uiHandler.ts"
+    "deploy": "npx serverless deploy",
+    "swagger": "npx ts-node swagger/uiHandler.ts"
   },
   "keywords": [],
   "author": "",
